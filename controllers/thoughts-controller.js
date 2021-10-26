@@ -55,7 +55,7 @@ const thoughtController = {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       {
-        $push: {
+        $addToSet: {
           reactions: req.body,
         },
       },

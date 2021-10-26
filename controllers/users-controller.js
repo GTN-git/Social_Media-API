@@ -50,13 +50,13 @@ const userController = {
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.json(err))
   },
-  //add reaction
+  //add friend
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       {
-        $push: {
-          reactions: req.body,
+        $addToSet: {
+          friends: req.params.friendId,
         },
       },
       { new: true }
@@ -64,15 +64,13 @@ const userController = {
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.json(err))
   },
-  //delete reaction
+  //delete friend
   deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       {
         $pull: {
-          reactions: {
-            reactionId: req.params.reactionId,
-          },
+            friends: req.params.friendId,
         },
       }
     )
